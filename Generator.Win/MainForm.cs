@@ -21,6 +21,21 @@ namespace Generator.Win
                 ConnectDatabase();
             }
 
+            private void CloseButton_Click(object sender, EventArgs e)
+            {
+                Application.Exit();
+            }
+
+            private void CreateButton_Click(object sender, EventArgs e)
+            {
+
+            }
+
+            private void DatabaseCombo_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                DatabaseComboSelectedIndexChanged();
+            }
+
             private void DisconnectButton_Click(object sender, EventArgs e)
             {
                 DisconnectDatabase();
@@ -44,6 +59,11 @@ namespace Generator.Win
                 DisableControls();
             }
 
+            private void DatabaseComboSelectedIndexChanged()
+            {
+                GetTables(GetProviderString());
+            }
+
             private void DisableControls()
             {
                 ServerBox.Enabled = false;
@@ -64,42 +84,52 @@ namespace Generator.Win
                 DatabaseCombo.Enabled = false;
             }
 
-            public void GetTables(string Provider)
+            private string GetProviderString()
+            {
+                string ProviderString = string.Empty;
+
+                ProviderString = "Integrated Security=False; Persist Security Info=False; Server=" + ServerBox.Text.Trim() + "; ";
+                ProviderString += "User=" + UserBox.Text.Trim() + "; ";
+                ProviderString += "Password=" + PasswordBox.Text.Trim() + "; ";
+
+                if (DatabaseCombo.SelectedIndex > 0)
+                    ProviderString += "Initial Catalog=" + DatabaseCombo.SelectedValue.ToString() + "; ";
+
+                return ProviderString;
+            }
+
+            private void GetTables(string ProviderString)
             {
                 DataTable Tables;
 
-                using (SqlConnection SqlServer = new SqlConnection(Provider))
+                using (SqlConnection SqlServer = new SqlConnection(ProviderString))
                 {
-                    //SqlServer.Open();
+                    SqlServer.Open();
 
-                    //Tables = SqlServer.GetSchema("Tables");
+                    Tables = SqlServer.GetSchema("Tables");
 
-                    //SqlServer.Close();
+                    SqlServer.Close();
 
-                    //if (Tables.Rows.Count > 0)
-                    //{
-                    //    // Muestra las tablas de la base de datos seleccionada en el combo
-                    //    Tables.DataSource = Tables;
-                    //    Tables.DisplayMember = "TABLE_NAME";
-                    //    Tables.ValueMember = "TABLE_NAME";
-                    //}
-                    //else
-                    //{
-                    //    Tables.DataSource = null;
-                    //}
+                    if (Tables.Rows.Count > 0)
+                    {
+                        // Muestra las tablas de la base de datos seleccionada en el grid
+                        TableGrid.DataSource = Tables;
+                    }
+                    else
+                    {
+                        TableGrid.DataSource = null;
+                    }
                 }
             }
 
             private void OpenConnection()
             {
-                string Provider = "";
+                string ProviderString = "";
                 DataTable Databases;
 
-                Provider = "Integrated Security=False; Persist Security Info=False; Server=" + ServerBox.Text.Trim() + "; ";
-                Provider += "User=" + UserBox.Text.Trim() + "; ";
-                Provider += "Password=" + PasswordBox.Text.Trim() + "; ";
+                ProviderString = GetProviderString();
 
-                using (SqlConnection SqlServer = new SqlConnection(Provider))
+                using (SqlConnection SqlServer = new SqlConnection(ProviderString))
                 {
                     SqlServer.Open();
 
@@ -114,14 +144,12 @@ namespace Generator.Win
                         DatabaseCombo.DisplayMember = "database_name";
                         DatabaseCombo.ValueMember = "database_name";
 
-                        Provider = Provider + "Initial Catalog=" + Databases.Rows[0]["database_name"].ToString() + "; ";
+                        ProviderString = ProviderString + "Initial Catalog=" + Databases.Rows[0]["database_name"].ToString() + "; ";
 
-                        GetTables(Provider);
+                        GetTables(ProviderString);
                     }
                     else
-                    {
                         DatabaseCombo.DataSource = null;
-                    }
                 }
             }
         #endregion

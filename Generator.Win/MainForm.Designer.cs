@@ -45,15 +45,25 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DatabaseCombo = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.ColumnGrid = new System.Windows.Forms.DataGridView();
+            this.TableGrid = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CheckColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.TableColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SelectCheck = new System.Windows.Forms.CheckBox();
+            this.InsertCheck = new System.Windows.Forms.CheckBox();
+            this.DeleteCheck = new System.Windows.Forms.CheckBox();
+            this.UpdateCheck = new System.Windows.Forms.CheckBox();
+            this.CreateButton = new System.Windows.Forms.Button();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.MenuBar.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ColumnGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuBar
@@ -62,7 +72,7 @@
             this.FileMenu});
             this.MenuBar.Location = new System.Drawing.Point(0, 0);
             this.MenuBar.Name = "MenuBar";
-            this.MenuBar.Size = new System.Drawing.Size(835, 24);
+            this.MenuBar.Size = new System.Drawing.Size(777, 24);
             this.MenuBar.TabIndex = 0;
             this.MenuBar.Text = "menuStrip1";
             // 
@@ -77,15 +87,15 @@
             // FileExitMenu
             // 
             this.FileExitMenu.Name = "FileExitMenu";
-            this.FileExitMenu.Size = new System.Drawing.Size(152, 22);
+            this.FileExitMenu.Size = new System.Drawing.Size(96, 22);
             this.FileExitMenu.Text = "Salir";
             this.FileExitMenu.Click += new System.EventHandler(this.FileExitMenu_Click);
             // 
             // StatusBar
             // 
-            this.StatusBar.Location = new System.Drawing.Point(0, 452);
+            this.StatusBar.Location = new System.Drawing.Point(0, 393);
             this.StatusBar.Name = "StatusBar";
-            this.StatusBar.Size = new System.Drawing.Size(835, 22);
+            this.StatusBar.Size = new System.Drawing.Size(777, 22);
             this.StatusBar.TabIndex = 1;
             this.StatusBar.Text = "statusStrip1";
             // 
@@ -182,9 +192,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.DatabaseCombo);
-            this.groupBox1.Location = new System.Drawing.Point(318, 72);
+            this.groupBox1.Location = new System.Drawing.Point(16, 236);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(450, 47);
+            this.groupBox1.Size = new System.Drawing.Size(272, 47);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Base de datos";
@@ -195,26 +205,32 @@
             this.DatabaseCombo.FormattingEnabled = true;
             this.DatabaseCombo.Location = new System.Drawing.Point(11, 19);
             this.DatabaseCombo.Name = "DatabaseCombo";
-            this.DatabaseCombo.Size = new System.Drawing.Size(200, 21);
+            this.DatabaseCombo.Size = new System.Drawing.Size(248, 21);
             this.DatabaseCombo.TabIndex = 12;
+            this.DatabaseCombo.SelectedIndexChanged += new System.EventHandler(this.DatabaseCombo_SelectedIndexChanged);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.ColumnGrid);
-            this.groupBox3.Location = new System.Drawing.Point(318, 130);
+            this.groupBox3.Controls.Add(this.TableGrid);
+            this.groupBox3.Location = new System.Drawing.Point(311, 72);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(450, 229);
+            this.groupBox3.Size = new System.Drawing.Size(450, 211);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tablas";
             // 
-            // ColumnGrid
+            // TableGrid
             // 
-            this.ColumnGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ColumnGrid.Location = new System.Drawing.Point(12, 19);
-            this.ColumnGrid.Name = "ColumnGrid";
-            this.ColumnGrid.Size = new System.Drawing.Size(425, 201);
-            this.ColumnGrid.TabIndex = 7;
+            this.TableGrid.AllowUserToAddRows = false;
+            this.TableGrid.AllowUserToDeleteRows = false;
+            this.TableGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TableGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckColumn,
+            this.TableColumn});
+            this.TableGrid.Location = new System.Drawing.Point(12, 19);
+            this.TableGrid.Name = "TableGrid";
+            this.TableGrid.Size = new System.Drawing.Size(425, 185);
+            this.TableGrid.TabIndex = 7;
             // 
             // label1
             // 
@@ -236,11 +252,110 @@
             this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
             // 
+            // CheckColumn
+            // 
+            this.CheckColumn.HeaderText = "";
+            this.CheckColumn.Name = "CheckColumn";
+            this.CheckColumn.Width = 30;
+            // 
+            // TableColumn
+            // 
+            this.TableColumn.DataPropertyName = "TABLE_NAME";
+            this.TableColumn.HeaderText = "Tabla";
+            this.TableColumn.Name = "TableColumn";
+            this.TableColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TableColumn.Width = 250;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.DeleteCheck);
+            this.groupBox2.Controls.Add(this.UpdateCheck);
+            this.groupBox2.Controls.Add(this.InsertCheck);
+            this.groupBox2.Controls.Add(this.SelectCheck);
+            this.groupBox2.Location = new System.Drawing.Point(311, 294);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(449, 75);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Acciones";
+            // 
+            // SelectCheck
+            // 
+            this.SelectCheck.AutoSize = true;
+            this.SelectCheck.Checked = true;
+            this.SelectCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SelectCheck.Location = new System.Drawing.Point(24, 25);
+            this.SelectCheck.Name = "SelectCheck";
+            this.SelectCheck.Size = new System.Drawing.Size(164, 17);
+            this.SelectCheck.TabIndex = 0;
+            this.SelectCheck.Text = "Crear procedimiento SELECT";
+            this.SelectCheck.UseVisualStyleBackColor = true;
+            // 
+            // InsertCheck
+            // 
+            this.InsertCheck.AutoSize = true;
+            this.InsertCheck.Checked = true;
+            this.InsertCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InsertCheck.Location = new System.Drawing.Point(24, 48);
+            this.InsertCheck.Name = "InsertCheck";
+            this.InsertCheck.Size = new System.Drawing.Size(163, 17);
+            this.InsertCheck.TabIndex = 1;
+            this.InsertCheck.Text = "Crear prodecimiento INSERT";
+            this.InsertCheck.UseVisualStyleBackColor = true;
+            // 
+            // DeleteCheck
+            // 
+            this.DeleteCheck.AutoSize = true;
+            this.DeleteCheck.Checked = true;
+            this.DeleteCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DeleteCheck.Location = new System.Drawing.Point(215, 48);
+            this.DeleteCheck.Name = "DeleteCheck";
+            this.DeleteCheck.Size = new System.Drawing.Size(165, 17);
+            this.DeleteCheck.TabIndex = 3;
+            this.DeleteCheck.Text = "Crear procedimiento DELETE";
+            this.DeleteCheck.UseVisualStyleBackColor = true;
+            // 
+            // UpdateCheck
+            // 
+            this.UpdateCheck.AutoSize = true;
+            this.UpdateCheck.Checked = true;
+            this.UpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.UpdateCheck.Location = new System.Drawing.Point(215, 25);
+            this.UpdateCheck.Name = "UpdateCheck";
+            this.UpdateCheck.Size = new System.Drawing.Size(167, 17);
+            this.UpdateCheck.TabIndex = 2;
+            this.UpdateCheck.Text = "Crear procedimiento UPDATE";
+            this.UpdateCheck.UseVisualStyleBackColor = true;
+            // 
+            // CreateButton
+            // 
+            this.CreateButton.Location = new System.Drawing.Point(16, 311);
+            this.CreateButton.Name = "CreateButton";
+            this.CreateButton.Size = new System.Drawing.Size(120, 34);
+            this.CreateButton.TabIndex = 26;
+            this.CreateButton.Text = "Crear procedimientos";
+            this.CreateButton.UseVisualStyleBackColor = true;
+            this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
+            // 
+            // CloseButton
+            // 
+            this.CloseButton.Location = new System.Drawing.Point(155, 311);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(120, 34);
+            this.CloseButton.TabIndex = 27;
+            this.CloseButton.Text = "Cerrar";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 474);
+            this.ClientSize = new System.Drawing.Size(777, 415);
+            this.Controls.Add(this.CloseButton);
+            this.Controls.Add(this.CreateButton);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox3);
@@ -257,8 +372,10 @@
             this.groupBox4.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ColumnGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,8 +399,17 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox DatabaseCombo;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView ColumnGrid;
+        private System.Windows.Forms.DataGridView TableGrid;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableColumn;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox DeleteCheck;
+        private System.Windows.Forms.CheckBox UpdateCheck;
+        private System.Windows.Forms.CheckBox InsertCheck;
+        private System.Windows.Forms.CheckBox SelectCheck;
+        private System.Windows.Forms.Button CreateButton;
+        private System.Windows.Forms.Button CloseButton;
     }
 }
