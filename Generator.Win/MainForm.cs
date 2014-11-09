@@ -28,7 +28,7 @@ namespace Generator.Win
 
             private void CreateButton_Click(object sender, EventArgs e)
             {
-
+                CreateProcedures();
             }
 
             private void DatabaseCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,6 +57,50 @@ namespace Generator.Win
             {
                 OpenConnection();
                 DisableControls();
+            }
+
+            private void CreateSelect()
+            {
+                StringBuilder Query = new StringBuilder();
+                DataTable dtSchema;
+                SqlDataReader drColumns;
+                SqlConnection SqlServer = new SqlConnection(GetProviderString());
+                SqlCommand Command = new SqlCommand("", SqlServer);
+
+                SqlServer.Open();
+
+                drColumns = Command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                dtSchema = drColumns.GetSchemaTable();
+
+                SqlServer.Close();
+
+                drColumns.Close();
+
+                foreach (DataRow dr in dtSchema.Rows)
+                {
+                    MessageBox.Show(dr["DataType"].ToString());
+                }
+
+                Query.Append("");
+            }
+
+            private void CreateProcedures()
+            {
+                DataGridViewCheckBoxCell CheckColumn;
+
+                // Se barre el grid para tomar las tablas que se utilizarán para generar los SPs
+                foreach (DataGridViewRow Row in TableGrid.Rows)
+                {
+                    CheckColumn = (DataGridViewCheckBoxCell)Row.Cells["CheckColumn"];
+
+                    //if (CheckColumn.Selected)
+                    //    MessageBox.Show("Bingo!");
+
+                    // Generar el script para la instrucción SELECT
+                    //if (SelectCheck.Checked)
+                    //    CreateSelect();
+                }
             }
 
             private void DatabaseComboSelectedIndexChanged()
