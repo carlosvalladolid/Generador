@@ -6,3 +6,4 @@ debug/
 Generator.Win.csproj
 Generator.Win.sln
 Generator.Win.suo
+*.suo
