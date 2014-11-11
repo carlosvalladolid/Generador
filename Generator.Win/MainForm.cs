@@ -59,13 +59,50 @@ namespace Generator.Win
                 DisableControls();
             }
 
-            private void CreateSelect()
+            private void CreateDeleteProcedure(string TableName)
+            {
+                // Nothing yet
+            }
+
+            private void CreateInsertProcedure(string TableName)
+            {
+                // Nothing yet
+            }
+
+            private void CreateProcedures()
+            {
+                // Se barre el grid para tomar las tablas que se utilizarán para generar los SPs
+                foreach (DataGridViewRow Row in TableGrid.Rows)
+                {
+                    // Si la celda trae null, nos pasamos al siguiente renglón
+                    if (Row.Cells["CheckColumn"].Value == null)
+                        continue;
+
+                    // Si no está seleccionada la casilla, nos pasamos al siguiente renglón
+                    if (!(bool)Row.Cells["CheckColumn"].Value)
+                        continue;
+
+                    if(SelectCheck.Checked)
+                        CreateSelectProcedure(Row.Cells["TableColumn"].Value.ToString());
+
+                    if(InsertCheck.Checked)
+                        CreateInsertProcedure(Row.Cells["TableColumn"].Value.ToString());
+
+                    if(UpdateCheck.Checked)
+                        CreateUpdateProcedure(Row.Cells["TableColumn"].Value.ToString());
+
+                    if(DeleteCheck.Checked)
+                        CreateDeleteProcedure(Row.Cells["TableColumn"].Value.ToString());
+                }
+            }
+
+            private void CreateSelectProcedure(string TableName)
             {
                 StringBuilder Query = new StringBuilder();
                 DataTable dtSchema;
                 SqlDataReader drColumns;
                 SqlConnection SqlServer = new SqlConnection(GetProviderString());
-                SqlCommand Command = new SqlCommand("", SqlServer);
+                SqlCommand Command = new SqlCommand("SELECT * FROM " + TableName, SqlServer);
 
                 SqlServer.Open();
 
@@ -77,30 +114,32 @@ namespace Generator.Win
 
                 drColumns.Close();
 
+                Query.Append("/*******************************************************************************************");
+                Query.Append("* NOMBRE			    Select");
+                Query.Append(TableName);
+                Query.Append("\r");
+                Query.Append("* AUTOR			    Code Generator Beta 1.0.0");
+                Query.Append("\r");
+                Query.Append("* DESCRIPCIÓN 		Busca información de la tabla ");
+                Query.Append(TableName);
+                Query.Append("\r");
+                Query.Append("*");
+                Query.Append("PARÁMETROS            {0}");
+                Query.Append("\r");
+                Query.Append("*");
+                Query.Append("*********************************************************************************************/");
+
                 foreach (DataRow dr in dtSchema.Rows)
                 {
-                    MessageBox.Show(dr["DataType"].ToString());
+                    //MessageBox.Show(dr["DataType"].ToString());
                 }
 
-                Query.Append("");
+                MessageBox.Show(Query.ToString());
             }
 
-            private void CreateProcedures()
+            private void CreateUpdateProcedure(string TableName)
             {
-                DataGridViewCheckBoxCell CheckColumn;
-
-                // Se barre el grid para tomar las tablas que se utilizarán para generar los SPs
-                foreach (DataGridViewRow Row in TableGrid.Rows)
-                {
-                    CheckColumn = (DataGridViewCheckBoxCell)Row.Cells["CheckColumn"];
-
-                    //if (CheckColumn.Selected)
-                    //    MessageBox.Show("Bingo!");
-
-                    // Generar el script para la instrucción SELECT
-                    //if (SelectCheck.Checked)
-                    //    CreateSelect();
-                }
+                // Nothing yet
             }
 
             private void DatabaseComboSelectedIndexChanged()
