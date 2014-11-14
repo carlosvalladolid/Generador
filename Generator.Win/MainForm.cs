@@ -98,7 +98,9 @@ namespace Generator.Win
 
             private void CreateSelectProcedure(string TableName)
             {
-                StringBuilder Query = new StringBuilder();
+                bool IsFirstParameter = true;
+                //string[] KeyArray = new string[];
+                StringBuilder ScriptQuery = new StringBuilder();
                 DataTable dtSchema;
                 SqlDataReader drColumns;
                 SqlConnection SqlServer = new SqlConnection(GetProviderString());
@@ -106,35 +108,88 @@ namespace Generator.Win
 
                 SqlServer.Open();
 
-                drColumns = Command.ExecuteReader(CommandBehavior.CloseConnection);
+                drColumns = Command.ExecuteReader(CommandBehavior.KeyInfo);
 
                 dtSchema = drColumns.GetSchemaTable();
 
                 SqlServer.Close();
-
                 drColumns.Close();
 
-                Query.Append("/*******************************************************************************************");
-                Query.Append("* NOMBRE			    Select");
-                Query.Append(TableName);
-                Query.Append("\r");
-                Query.Append("* AUTOR			    Code Generator Beta 1.0.0");
-                Query.Append("\r");
-                Query.Append("* DESCRIPCIÓN 		Busca información de la tabla ");
-                Query.Append(TableName);
-                Query.Append("\r");
-                Query.Append("*");
-                Query.Append("PARÁMETROS            {0}");
-                Query.Append("\r");
-                Query.Append("*");
-                Query.Append("*********************************************************************************************/");
+                ScriptQuery.Append("/*******************************************************************************************");
+                ScriptQuery.Append("* NOMBRE			    Select");
+                ScriptQuery.Append(TableName);
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("* AUTOR			    Code Generator Beta 1.0.0");
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("* DESCRIPCIÓN 		Busca información de la tabla ");
+                ScriptQuery.Append(TableName);
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("*");
+                ScriptQuery.Append("PARÁMETROS            {0}");
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("*");
+                ScriptQuery.Append("*********************************************************************************************/");
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("CREATE PROCEDURE [dbo].Select");
+                ScriptQuery.Append(TableName);
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("(");
+                ScriptQuery.Append("\r");
 
+                // Se extraen los parámetros
                 foreach (DataRow dr in dtSchema.Rows)
                 {
-                    //MessageBox.Show(dr["DataType"].ToString());
+                    if ((bool)dr["IsKey"])
+                    {
+                        if (!IsFirstParameter)
+                            ScriptQuery.Append(",\r");
+                        else
+                            IsFirstParameter = false;
+
+                        ScriptQuery.Append("@");
+                        ScriptQuery.Append(dr["ColumnName"]);
+                        ScriptQuery.Append(" ");
+                        ScriptQuery.Append(dr["DataTypeName"]);
+                    }
                 }
 
-                MessageBox.Show(Query.ToString());
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append(")");
+                ScriptQuery.Append("\r\r");
+                ScriptQuery.Append("AS");
+                ScriptQuery.Append("\r\r");
+                ScriptQuery.Append("SET NOCOUNT ON");
+                ScriptQuery.Append("\r\r");
+
+                ScriptQuery.Append("SELECT ");
+
+                IsFirstParameter = true;
+
+                // Se arma la consulta
+                foreach (DataRow dr in dtSchema.Rows)
+                {
+                    if (!IsFirstParameter)
+                        ScriptQuery.Append(", ");
+                    else
+                        IsFirstParameter = false;
+
+                    ScriptQuery.Append(dr["ColumnName"]);
+                }
+
+                ScriptQuery.Append("\r");
+                ScriptQuery.Append("FROM ");
+                ScriptQuery.Append(TableName);
+                ScriptQuery.Append("\r");
+
+                // Cláusula WHERE
+                ScriptQuery.Append("WHERE (");
+
+
+
+                ScriptQuery.Append("\r\r");
+                ScriptQuery.Append("SET NOCOUNT OFF");
+
+                MessageBox.Show(ScriptQuery.ToString());
             }
 
             private void CreateUpdateProcedure(string TableName)
