@@ -32,7 +32,7 @@
             this.MenuBar = new System.Windows.Forms.MenuStrip();
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.FileExitMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.AboutGenerator = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.SelectCheck = new System.Windows.Forms.CheckBox();
             this.CreateButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.HelpAboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuBar.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             this.MenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileMenu,
-            this.AboutGenerator});
+            this.HelpMenu});
             this.MenuBar.Location = new System.Drawing.Point(0, 0);
             this.MenuBar.Name = "MenuBar";
             this.MenuBar.Size = new System.Drawing.Size(777, 24);
@@ -93,12 +94,13 @@
             this.FileExitMenu.Text = "Salir";
             this.FileExitMenu.Click += new System.EventHandler(this.FileExitMenu_Click);
             // 
-            // AboutGenerator
+            // HelpMenu
             // 
-            this.AboutGenerator.Name = "AboutGenerator";
-            this.AboutGenerator.Size = new System.Drawing.Size(71, 20);
-            this.AboutGenerator.Text = "Acerca de";
-            this.AboutGenerator.Click += new System.EventHandler(this.AboutGenerator_Click);
+            this.HelpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.HelpAboutMenu});
+            this.HelpMenu.Name = "HelpMenu";
+            this.HelpMenu.Size = new System.Drawing.Size(53, 20);
+            this.HelpMenu.Text = "Ayuda";
             // 
             // StatusBar
             // 
@@ -357,6 +359,13 @@
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
+            // HelpAboutMenu
+            // 
+            this.HelpAboutMenu.Name = "HelpAboutMenu";
+            this.HelpAboutMenu.Size = new System.Drawing.Size(184, 22);
+            this.HelpAboutMenu.Text = "Acerca de Generador";
+            this.HelpAboutMenu.Click += new System.EventHandler(this.HelpAboutMenu_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,6 +429,7 @@
         private System.Windows.Forms.CheckBox SelectCheck;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.Button CloseButton;
-        private System.Windows.Forms.ToolStripMenuItem AboutGenerator;
+        private System.Windows.Forms.ToolStripMenuItem HelpMenu;
+        private System.Windows.Forms.ToolStripMenuItem HelpAboutMenu;
     }
 }
