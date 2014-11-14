@@ -16,6 +16,7 @@ namespace Generator.Win
         private int _ErrorId = 0;
 
         #region "Events"
+
             private void ConnectionButton_Click(object sender, EventArgs e)
             {
                 ConnectDatabase();
@@ -291,5 +292,6 @@ namespace Generator.Win
                 }
             }
         #endregion
+
     }
 }

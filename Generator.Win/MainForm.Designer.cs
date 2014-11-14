@@ -46,17 +46,18 @@
             this.DatabaseCombo = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.TableGrid = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CheckColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.TableColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.SelectCheck = new System.Windows.Forms.CheckBox();
-            this.InsertCheck = new System.Windows.Forms.CheckBox();
             this.DeleteCheck = new System.Windows.Forms.CheckBox();
             this.UpdateCheck = new System.Windows.Forms.CheckBox();
+            this.InsertCheck = new System.Windows.Forms.CheckBox();
+            this.SelectCheck = new System.Windows.Forms.CheckBox();
             this.CreateButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuBar.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -69,7 +70,8 @@
             // MenuBar
             // 
             this.MenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FileMenu});
+            this.FileMenu,
+            this.acercaDeToolStripMenuItem});
             this.MenuBar.Location = new System.Drawing.Point(0, 0);
             this.MenuBar.Name = "MenuBar";
             this.MenuBar.Size = new System.Drawing.Size(777, 24);
@@ -87,7 +89,7 @@
             // FileExitMenu
             // 
             this.FileExitMenu.Name = "FileExitMenu";
-            this.FileExitMenu.Size = new System.Drawing.Size(96, 22);
+            this.FileExitMenu.Size = new System.Drawing.Size(152, 22);
             this.FileExitMenu.Text = "Salir";
             this.FileExitMenu.Click += new System.EventHandler(this.FileExitMenu_Click);
             // 
@@ -232,6 +234,21 @@
             this.TableGrid.Size = new System.Drawing.Size(425, 185);
             this.TableGrid.TabIndex = 7;
             // 
+            // CheckColumn
+            // 
+            this.CheckColumn.HeaderText = "";
+            this.CheckColumn.Name = "CheckColumn";
+            this.CheckColumn.Width = 30;
+            // 
+            // TableColumn
+            // 
+            this.TableColumn.DataPropertyName = "TABLE_NAME";
+            this.TableColumn.HeaderText = "Tabla";
+            this.TableColumn.Name = "TableColumn";
+            this.TableColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TableColumn.Width = 250;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -252,21 +269,6 @@
             this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
             // 
-            // CheckColumn
-            // 
-            this.CheckColumn.HeaderText = "";
-            this.CheckColumn.Name = "CheckColumn";
-            this.CheckColumn.Width = 30;
-            // 
-            // TableColumn
-            // 
-            this.TableColumn.DataPropertyName = "TABLE_NAME";
-            this.TableColumn.HeaderText = "Tabla";
-            this.TableColumn.Name = "TableColumn";
-            this.TableColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TableColumn.Width = 250;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.DeleteCheck);
@@ -279,30 +281,6 @@
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Acciones";
-            // 
-            // SelectCheck
-            // 
-            this.SelectCheck.AutoSize = true;
-            this.SelectCheck.Checked = true;
-            this.SelectCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.SelectCheck.Location = new System.Drawing.Point(24, 25);
-            this.SelectCheck.Name = "SelectCheck";
-            this.SelectCheck.Size = new System.Drawing.Size(164, 17);
-            this.SelectCheck.TabIndex = 0;
-            this.SelectCheck.Text = "Crear procedimiento SELECT";
-            this.SelectCheck.UseVisualStyleBackColor = true;
-            // 
-            // InsertCheck
-            // 
-            this.InsertCheck.AutoSize = true;
-            this.InsertCheck.Checked = true;
-            this.InsertCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InsertCheck.Location = new System.Drawing.Point(24, 48);
-            this.InsertCheck.Name = "InsertCheck";
-            this.InsertCheck.Size = new System.Drawing.Size(163, 17);
-            this.InsertCheck.TabIndex = 1;
-            this.InsertCheck.Text = "Crear prodecimiento INSERT";
-            this.InsertCheck.UseVisualStyleBackColor = true;
             // 
             // DeleteCheck
             // 
@@ -328,6 +306,30 @@
             this.UpdateCheck.Text = "Crear procedimiento UPDATE";
             this.UpdateCheck.UseVisualStyleBackColor = true;
             // 
+            // InsertCheck
+            // 
+            this.InsertCheck.AutoSize = true;
+            this.InsertCheck.Checked = true;
+            this.InsertCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InsertCheck.Location = new System.Drawing.Point(24, 48);
+            this.InsertCheck.Name = "InsertCheck";
+            this.InsertCheck.Size = new System.Drawing.Size(163, 17);
+            this.InsertCheck.TabIndex = 1;
+            this.InsertCheck.Text = "Crear prodecimiento INSERT";
+            this.InsertCheck.UseVisualStyleBackColor = true;
+            // 
+            // SelectCheck
+            // 
+            this.SelectCheck.AutoSize = true;
+            this.SelectCheck.Checked = true;
+            this.SelectCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SelectCheck.Location = new System.Drawing.Point(24, 25);
+            this.SelectCheck.Name = "SelectCheck";
+            this.SelectCheck.Size = new System.Drawing.Size(164, 17);
+            this.SelectCheck.TabIndex = 0;
+            this.SelectCheck.Text = "Crear procedimiento SELECT";
+            this.SelectCheck.UseVisualStyleBackColor = true;
+            // 
             // CreateButton
             // 
             this.CreateButton.Location = new System.Drawing.Point(16, 311);
@@ -347,6 +349,12 @@
             this.CloseButton.Text = "Cerrar";
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.acercaDeToolStripMenuItem.Text = "Acerca de";
             // 
             // MainForm
             // 
@@ -411,5 +419,6 @@
         private System.Windows.Forms.CheckBox SelectCheck;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.Button CloseButton;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
     }
 }
