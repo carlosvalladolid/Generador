@@ -17,6 +17,11 @@ namespace Generator.Win
 
         #region "Events"
 
+            private void AboutGenerator_Click(object sender, EventArgs e)
+            {
+                MessageBox.Show("Generator versión 1.0 ");
+            }
+
             private void ConnectionButton_Click(object sender, EventArgs e)
             {
                 ConnectDatabase();
