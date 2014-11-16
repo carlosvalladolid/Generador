@@ -16,7 +16,6 @@ namespace Generator.Win
         private int _ErrorId = 0;
 
         #region "Events"
-
             private void ConnectionButton_Click(object sender, EventArgs e)
             {
                 ConnectDatabase();
@@ -51,7 +50,6 @@ namespace Generator.Win
             {
                 MessageBox.Show("Generador v1.0", "Acerca de Generador");
             }
-
 
             public MainForm()
             {
@@ -106,12 +104,14 @@ namespace Generator.Win
             private void CreateSelectProcedure(string TableName)
             {
                 bool IsFirstParameter = true;
+                int Count = 0;
                 //string[] KeyArray = new string[];
+                List<string> Parameter = new List<string>();
                 StringBuilder ScriptQuery = new StringBuilder();
                 DataTable dtSchema;
                 SqlDataReader drColumns;
                 SqlConnection SqlServer = new SqlConnection(GetProviderString());
-                SqlCommand Command = new SqlCommand("SELECT * FROM " + TableName, SqlServer);
+                SqlCommand Command = new SqlCommand("SELECT * FROM [" + TableName + "]", SqlServer);
 
                 SqlServer.Open();
 
@@ -154,9 +154,11 @@ namespace Generator.Win
                             IsFirstParameter = false;
 
                         ScriptQuery.Append("@");
-                        ScriptQuery.Append(dr["ColumnName"]);
+                        ScriptQuery.Append(dr["ColumnName"].ToString());
                         ScriptQuery.Append(" ");
-                        ScriptQuery.Append(dr["DataTypeName"]);
+                        ScriptQuery.Append(dr["DataTypeName"].ToString());
+
+                        Parameter.Add(dr["ColumnName"].ToString());
                     }
                 }
 
@@ -191,8 +193,29 @@ namespace Generator.Win
                 // Cláusula WHERE
                 ScriptQuery.Append("WHERE (");
 
+                IsFirstParameter = true;
 
+                for (Count = 0; Count < Parameter.Count; Count++)
+                {
+                    if (IsFirstParameter)
+                        IsFirstParameter = false;
+                    else
+                    {
+                        ScriptQuery.Append("\r");
+                        ScriptQuery.Append("AND (");
+                    }
 
+                    ScriptQuery.Append(Parameter[Count]);
+                    ScriptQuery.Append(" = @");
+                    ScriptQuery.Append(Parameter[Count]);
+                    ScriptQuery.Append(")");
+
+                    // ToDo: Poner la condición del parámetro vacío
+                    //ScriptQuery.Append("OR @");
+                    //ScriptQuery.Append(Parameter[Count]);
+                }
+
+                //ScriptQuery.Append(")");
                 ScriptQuery.Append("\r\r");
                 ScriptQuery.Append("SET NOCOUNT OFF");
 
