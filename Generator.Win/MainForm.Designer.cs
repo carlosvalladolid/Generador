@@ -33,6 +33,7 @@
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.FileExitMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpAboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,7 +59,6 @@
             this.SelectCheck = new System.Windows.Forms.CheckBox();
             this.CreateButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
-            this.HelpAboutMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuBar.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -101,6 +101,13 @@
             this.HelpMenu.Name = "HelpMenu";
             this.HelpMenu.Size = new System.Drawing.Size(53, 20);
             this.HelpMenu.Text = "Ayuda";
+            // 
+            // HelpAboutMenu
+            // 
+            this.HelpAboutMenu.Name = "HelpAboutMenu";
+            this.HelpAboutMenu.Size = new System.Drawing.Size(184, 22);
+            this.HelpAboutMenu.Text = "Acerca de Generador";
+            this.HelpAboutMenu.Click += new System.EventHandler(this.HelpAboutMenu_Click);
             // 
             // StatusBar
             // 
@@ -358,13 +365,6 @@
             this.CloseButton.Text = "Cerrar";
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
-            // 
-            // HelpAboutMenu
-            // 
-            this.HelpAboutMenu.Name = "HelpAboutMenu";
-            this.HelpAboutMenu.Size = new System.Drawing.Size(184, 22);
-            this.HelpAboutMenu.Text = "Acerca de Generador";
-            this.HelpAboutMenu.Click += new System.EventHandler(this.HelpAboutMenu_Click);
             // 
             // MainForm
             // 
