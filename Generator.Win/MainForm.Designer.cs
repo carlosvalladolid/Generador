@@ -383,7 +383,7 @@
             this.Controls.Add(this.MenuBar);
             this.MainMenuStrip = this.MenuBar;
             this.Name = "MainForm";
-            this.Text = "Generador de código";
+            this.Text = "Generador de stored procedures";
             this.MenuBar.ResumeLayout(false);
             this.MenuBar.PerformLayout();
             this.groupBox4.ResumeLayout(false);

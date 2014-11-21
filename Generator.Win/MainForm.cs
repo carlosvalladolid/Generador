@@ -699,6 +699,5 @@ namespace Generator.Win
                 }
             }
         #endregion
-
     }
 }
